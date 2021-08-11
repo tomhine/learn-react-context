@@ -1,23 +1,45 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import styles from "./App.module.css";
+import CartModal, { BackDrop } from "./components/CartModal/CartModal";
+import Header from "./components/Header/Header";
+import ProductList from "./components/ProductList/ProductList";
+import CartContext from "./context/CartContext";
+import ThemeContext, { theme } from "./context/ThemeContext";
 
 function App() {
+  const [isDarkTheme, setIsDarkTheme] = useState(true);
+  const [cartOpen, setCartOpen] = useState(false);
+
+  const themeToggleHandler = () => {
+    setIsDarkTheme((curr) => !curr);
+  };
+
+  const openCartHandler = () => {
+    setCartOpen(true);
+  };
+
+  const closeCartHandler = (e) => {
+    e.stopPropagation();
+    setCartOpen(false);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className={styles.app}>
+      <ThemeContext.Provider value={isDarkTheme ? theme.dark : theme.light}>
+        <CartContext>
+          {cartOpen && (
+            <>
+              <BackDrop onBackdropClick={closeCartHandler} />
+              <CartModal />
+            </>
+          )}
+          <Header onCartClick={openCartHandler} isDarkTheme={isDarkTheme} />
+          <main>
+            <ProductList />
+          </main>
+          <footer></footer>
+        </CartContext>
+      </ThemeContext.Provider>
     </div>
   );
 }

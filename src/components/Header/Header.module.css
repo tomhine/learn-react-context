@@ -1,0 +1,26 @@
+.header {
+  padding: 0 20px;
+  height: 80px;
+}
+
+.btn {
+  padding: 15px 30px;
+  border-radius: 5px;
+  outline: none;
+  cursor: pointer;
+}
+
+.navList {
+  margin: 0;
+  padding: 0;
+}
+
+.navList > li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80px;
+  width: 120px;
+  margin: 0;
+  cursor: pointer;
+}
