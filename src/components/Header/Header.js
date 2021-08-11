@@ -1,9 +1,11 @@
 import { useContext } from "react";
 import styles from "./Header.module.css";
 import ThemeContext from "../../context/ThemeContext";
+import { cartCtx } from "../../context/CartContext";
 
 const Header = ({ onCartClick, isDarkTheme }) => {
   const themeCtx = useContext(ThemeContext);
+  const cartContext = useContext(cartCtx);
 
   const btn = {
     backgroundColor: themeCtx.element,
@@ -26,7 +28,8 @@ const Header = ({ onCartClick, isDarkTheme }) => {
         </ul>
       </nav>
       <button style={btn} onClick={onCartClick} className={styles.btn}>
-        Cart
+        <p>Cart</p>
+        <div className={styles.btnNumber}>{cartContext.totalItemsInCart}</div>
       </button>
     </header>
   );
