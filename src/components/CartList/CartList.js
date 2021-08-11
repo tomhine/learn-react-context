@@ -14,6 +14,9 @@ const CartList = ({ ctx }) => {
       <div className={styles.itemName}>
         <p>{item.sku}</p>
       </div>
+      <div className={styles.itemCost}>
+        <p>£{item.cost_ex_vat.toFixed(2)}</p>
+      </div>
       <div className={styles.itemQuantity}>
         <button
           className={styles.button}

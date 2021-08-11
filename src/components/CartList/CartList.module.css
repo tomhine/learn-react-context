@@ -17,18 +17,23 @@
 }
 
 .itemName {
-  flex: 0.5;
+  flex: 0.4;
+}
+
+.itemCost {
+  flex: 0.15;
 }
 
 .itemQuantity {
-  flex: 0.25;
+  flex: 0.3;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 10px;
 }
 
 .itemDelete {
-  flex: 0.25;
+  flex: 0.15;
 }
 
 .button {
