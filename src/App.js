@@ -17,8 +17,15 @@ function App() {
     setCartOpen(false);
   };
 
+  const overflowHidden = cartOpen
+    ? {
+        overflow: 'hidden',
+        height: '100vh',
+      }
+    : null;
+
   return (
-    <div className={styles.app}>
+    <div className={styles.app} style={overflowHidden}>
       <CartContext>
         {cartOpen && (
           <>
