@@ -1,33 +1,14 @@
-import { useContext } from "react";
-import styles from "./Header.module.css";
-import ThemeContext from "../../context/ThemeContext";
-import { cartCtx } from "../../context/CartContext";
+import { useContext } from 'react';
+import styles from './Header.module.css';
+import { cartCtx } from '../../context/CartContext';
 
-const Header = ({ onCartClick, isDarkTheme }) => {
-  const themeCtx = useContext(ThemeContext);
+const Header = ({ onCartClick }) => {
   const cartContext = useContext(cartCtx);
 
-  const btn = {
-    backgroundColor: themeCtx.element,
-    color: themeCtx.text,
-    border: `1px solid ${themeCtx.text}`,
-    boxShadow: `0 2px 4px 2px ${themeCtx.shadowColor}`,
-  };
-
   return (
-    <header
-      className={styles.header}
-      style={{ color: themeCtx.text, backgroundColor: themeCtx.element }}
-    >
+    <header className={styles.header}>
       <h1>Contextualize</h1>
-      <nav>
-        <ul className={styles.navList}>
-          <li>About Us</li>
-          <li>Contact</li>
-          <li>Other</li>
-        </ul>
-      </nav>
-      <button style={btn} onClick={onCartClick} className={styles.btn}>
+      <button onClick={onCartClick} className={styles.btn}>
         <p>Cart</p>
         <div className={styles.btnNumber}>{cartContext.totalItemsInCart}</div>
       </button>
