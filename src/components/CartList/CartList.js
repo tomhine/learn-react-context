@@ -1,15 +1,14 @@
-import { CrossIcon } from "../UI/Icons";
-import styles from "./CartList.module.css";
+import { useContext } from 'react';
+import { cartCtx } from '../../context/CartContext';
+import { CrossIcon } from '../UI/Icons';
+import styles from './CartList.module.css';
 
-const CartList = ({ ctx }) => {
-  const {
-    cart,
-    removeProductFromCart,
-    incrementProductInCart,
-    decrementProductInCart,
-  } = ctx;
+const CartList = () => {
+  const cartContext = useContext(cartCtx);
+  const { cart, removeProductFromCart, incrementProductInCart, decrementProductInCart } =
+    cartContext;
 
-  const cartItems = cart.map((item) => (
+  const cartItems = cart.map(item => (
     <div className={styles.cartItem} key={item.id}>
       <div className={styles.itemName}>
         <p>{item.sku}</p>
@@ -18,17 +17,11 @@ const CartList = ({ ctx }) => {
         <p>£{item.cost_ex_vat.toFixed(2)}</p>
       </div>
       <div className={styles.itemQuantity}>
-        <button
-          className={styles.button}
-          onClick={() => decrementProductInCart(item.id)}
-        >
+        <button className={styles.button} onClick={() => decrementProductInCart(item.id)}>
           -
         </button>
         <p>{item.quantity}</p>
-        <button
-          className={styles.button}
-          onClick={() => incrementProductInCart(item.id)}
-        >
+        <button className={styles.button} onClick={() => incrementProductInCart(item.id)}>
           +
         </button>
       </div>
