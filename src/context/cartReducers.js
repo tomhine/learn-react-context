@@ -1,19 +1,18 @@
-export const ADD_PRODUCT = "ADD_PRODUCT";
-export const REMOVE_PRODUCT = "REMOVE_PRODUCT";
-export const INCREMENT_PRODUCT = "INCREMENT_PRODUCT";
-export const DECREMENT_PRODUCT = "DECREMENT_PRODUCT";
+export const ADD_PRODUCT = 'ADD_PRODUCT';
+export const REMOVE_PRODUCT = 'REMOVE_PRODUCT';
+export const INCREMENT_PRODUCT = 'INCREMENT_PRODUCT';
+export const DECREMENT_PRODUCT = 'DECREMENT_PRODUCT';
 
 const addProductToCart = (state, product) => {
   const updatedCart = [...state.cart];
-  const updatedItemIndex = updatedCart.findIndex(
-    (item) => item.id === product.id
-  );
+  const updatedItemIndex = updatedCart.findIndex(item => item.id === product.id);
   if (updatedItemIndex < 0) {
     updatedCart.push({ ...product, quantity: 1 });
   } else {
-    const currentItem = { ...updatedCart[updatedItemIndex] };
-    currentItem.quantity++;
-    updatedCart[updatedItemIndex] = currentItem;
+    // const currentItem = { ...updatedCart[updatedItemIndex] };
+    // currentItem.quantity++;
+    // updatedCart[updatedItemIndex] = currentItem;
+    return incrementProductInCart(state, product.id);
   }
   return {
     ...state,
@@ -25,7 +24,7 @@ const addProductToCart = (state, product) => {
 
 const removeProductFromCart = (state, id) => {
   const updatedCart = [...state.cart];
-  const updatedItemIndex = updatedCart.findIndex((item) => item.id === id);
+  const updatedItemIndex = updatedCart.findIndex(item => item.id === id);
   updatedCart.splice(updatedItemIndex, 1);
   return {
     ...state,
@@ -37,7 +36,7 @@ const removeProductFromCart = (state, id) => {
 
 const incrementProductInCart = (state, id) => {
   const updatedCart = [...state.cart];
-  const updatedItemIndex = updatedCart.findIndex((item) => item.id === id);
+  const updatedItemIndex = updatedCart.findIndex(item => item.id === id);
   const currentItem = { ...updatedCart[updatedItemIndex] };
   currentItem.quantity++;
   updatedCart[updatedItemIndex] = currentItem;
@@ -52,8 +51,11 @@ const incrementProductInCart = (state, id) => {
 
 const decrementProductInCart = (state, id) => {
   const updatedCart = [...state.cart];
-  const updatedItemIndex = updatedCart.findIndex((item) => item.id === id);
+  const updatedItemIndex = updatedCart.findIndex(item => item.id === id);
   const currentItem = { ...updatedCart[updatedItemIndex] };
+  if (currentItem.quantity <= 1) {
+    return removeProductFromCart(state, id);
+  }
   currentItem.quantity--;
   updatedCart[updatedItemIndex] = currentItem;
 
@@ -65,11 +67,11 @@ const decrementProductInCart = (state, id) => {
   };
 };
 
-const calculateTotalItemsInCart = (cart) => {
+const calculateTotalItemsInCart = cart => {
   return cart.reduce((acc, cur) => (acc += cur.quantity), 0);
 };
 
-const calculateTotalCostOfCart = (cart) => {
+const calculateTotalCostOfCart = cart => {
   return cart.reduce((acc, cur) => (acc += cur.quantity * cur.cost_ex_vat), 0);
 };
 
